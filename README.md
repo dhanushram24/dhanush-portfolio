@@ -1,4 +1,32 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Dhanush Ram - Portfolio
+
+A modern, responsive portfolio website built with Next.js, TypeScript, and Tailwind CSS.
+
+## 🚀 Features
+
+- **Modern Design**: Clean, professional UI with dark/light theme toggle
+- **Responsive**: Mobile-first design that works on all devices
+- **Real-time Contact Form**: Functional contact form with email integration
+- **Interactive Animations**: Smooth animations powered by Framer Motion
+- **TypeScript**: Type-safe development with full TypeScript support
+- **Performance Optimized**: Built with Next.js 15 for optimal performance
+
+## 🛠️ Tech Stack
+
+- **Frontend**: Next.js 15, React 19, TypeScript
+- **Styling**: Tailwind CSS v4
+- **Animations**: Framer Motion
+- **Icons**: Lucide React
+- **Email**: Nodemailer with Gmail SMTP
+- **Deployment**: Ready for Vercel deployment
+
+## 📋 Pages
+
+- **Home**: Hero section with introduction and call-to-action
+- **About**: Personal background, skills, and education
+- **Experience**: Professional experience and work history
+- **Projects**: Showcase of personal and professional projects
+- **Contact**: Functional contact form with real-time email delivery
 
 ## Getting Started
 
