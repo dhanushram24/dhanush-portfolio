@@ -11,30 +11,41 @@ export default function Projects() {
   const projects = [
     {
       id: 1,
-      title: 'Animated Portfolio Website',
-      description: 'A dynamic HTML/CSS/JavaScript portfolio featuring smooth animations, typed text effects, and responsive design. Built with custom CSS animations and Typed.js for interactive text display.',
-      image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=600&h=400&fit=crop&crop=entropy',
-      technologies: ['HTML5', 'CSS3', 'JavaScript', 'Typed.js', 'BoxIcons'],
+      title: 'Anime loop',
+      description: 'An immersive anime-themed portfolio showcasing cutting-edge web animations and interactive UI elements. Features dynamic background effects, smooth scroll animations, typewriter text effects, and responsive design optimized for all devices.',
+      image: '/images/anime.jpg',
+      technologies: ['TypeScript'],
       category: 'frontend',
-      github: 'https://github.com/dhanushram24/portfolio',
-      live: 'https://dhanushram24.github.io/portfolio',
+      github: 'https://github.com/dhanushram24/anime_loop',
+      live: 'https://anime-loop-rho.vercel.app',
       featured: true
     },
     {
       id: 2,
-      title: 'Next.js Modern Portfolio',
-      description: 'A modern, responsive portfolio website built with Next.js, TypeScript, and Framer Motion animations with dark/light theme support and real certifications.',
-      image: 'https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=600&h=400&fit=crop&crop=entropy',
+      title: 'Spot The Job',
+      description: 'A comprehensive job portal platform connecting talented professionals with leading companies. Features advanced job search filters, real-time application tracking, company profiles, and intuitive user dashboard for seamless job hunting experience.',
+      image: '/images/job.jpg',
       technologies: ['Next.js', 'TypeScript', 'Tailwind CSS', 'Framer Motion'],
       category: 'frontend',
-      github: 'https://github.com/dhanushram24/nextjs-portfolio',
-      live: 'https://dhanushram-portfolio.vercel.app',
+      github: 'https://github.com/dhanushram24/spot-the-job',
+      live: 'https://spot-the-job.vercel.app',
       featured: true
     },
-    {
+     {
       id: 3,
+      title: 'Forbes BMI Calculator',
+      description: 'A sophisticated health tracking application that calculates Body Mass Index with personalized health recommendations. Includes interactive charts, progress visualization, health category analysis, and data persistence for long-term health monitoring.',
+      image: 'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=600&h=400&fit=crop&crop=entropy',
+      technologies: ['JavaScript', 'HTML5', 'CSS3', 'Chart.js', 'Local Storage'],
+      category: 'frontend',
+      github: 'https://github.com/dhanushram24/forbes_bmi',
+      live: 'https://dhanushram24.github.io/forbes_bmi',
+      featured: false
+    },
+    {
+      id: 4,
       title: 'Calculator Application',
-      description: 'A responsive calculator app with modern UI design and full arithmetic functionality. Features clean interface with smooth button interactions.',
+      description: 'An elegant and powerful calculator application with advanced mathematical operations and memory functions. Features a sleek glassmorphism design, keyboard shortcuts, calculation history, and responsive layout for desktop and mobile devices.',
       image: 'https://images.unsplash.com/photo-1611224923853-80b023f02d71?w=600&h=400&fit=crop&crop=entropy',
       technologies: ['HTML5', 'CSS3', 'JavaScript', 'Responsive Design'],
       category: 'frontend',
@@ -43,9 +54,9 @@ export default function Projects() {
       featured: true
     },
     {
-      id: 4,
+      id: 5,
       title: 'MERN Stack E-Commerce',
-      description: 'Full-stack e-commerce application built during Ethnus internship. Features user authentication, product management, shopping cart, and payment integration.',
+      description: 'A full-featured e-commerce platform built during my Ethnus internship. Includes secure user authentication, product catalog management, shopping cart functionality, order processing, payment gateway integration, and admin dashboard for complete store management.',
       image: 'https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=600&h=400&fit=crop&crop=entropy',
       technologies: ['MongoDB', 'Express.js', 'React', 'Node.js', 'JWT'],
       category: 'fullstack',
@@ -54,9 +65,9 @@ export default function Projects() {
       featured: false
     },
     {
-      id: 5,
+      id: 6,
       title: 'Todo List Manager',
-      description: 'A feature-rich todo application with local storage persistence, task categories, and priority levels. Built with vanilla JavaScript for optimal performance.',
+      description: 'A feature-rich task management application designed for maximum productivity. Includes task categorization, priority levels, due date reminders, progress tracking, local storage persistence, and drag-and-drop functionality for efficient task organization.',
       image: 'https://images.unsplash.com/photo-1611224923853-80b023f02d71?w=600&h=400&fit=crop&crop=entropy',
       technologies: ['JavaScript', 'HTML5', 'CSS3', 'Local Storage'],
       category: 'frontend',
@@ -65,9 +76,9 @@ export default function Projects() {
       featured: false
     },
     {
-      id: 6,
+      id: 7,
       title: 'Business Landing Page',
-      description: 'A modern, responsive landing page for businesses with smooth scrolling, contact forms, and optimized performance. Features contemporary design with CSS Grid and Flexbox.',
+      description: 'A conversion-optimized business landing page with modern design principles and high-performance architecture. Features smooth scroll animations, interactive contact forms, testimonial sections, service showcases, and mobile-first responsive design.',
       image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=600&h=400&fit=crop&crop=entropy',
       technologies: ['HTML5', 'CSS3', 'JavaScript', 'CSS Grid', 'Flexbox'],
       category: 'frontend',
@@ -76,9 +87,9 @@ export default function Projects() {
       featured: false
     },
     {
-      id: 7,
+      id: 8,
       title: 'VChat - Chat Application',
-      description: 'A real-time chat application enabling seamless communication between users. Features include video/audio calls, chat messaging, and room-based conversations.',
+      description: 'A real-time communication platform enabling seamless video calls, voice chats, and instant messaging. Built with WebRTC for peer-to-peer connections, featuring room creation, screen sharing, file transfer, and cross-platform compatibility.',
       image: 'https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=600&h=400&fit=crop&crop=entropy',
       technologies: ['WebRTC', 'Socket.io', 'Node.js', 'JavaScript', 'HTML5'],
       category: 'fullstack',
@@ -87,31 +98,9 @@ export default function Projects() {
       featured: true
     },
     {
-      id: 8,
-      title: 'Spot The Job - Job Portal',
-      description: 'A comprehensive job portal platform connecting job seekers with employers. Features job listings, application tracking, profile management, and advanced search filters.',
-      image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&h=400&fit=crop&crop=entropy',
-      technologies: ['React', 'Node.js', 'MongoDB', 'Express.js', 'Material-UI'],
-      category: 'fullstack',
-      github: 'https://github.com/dhanushram24/spot-the-job',
-      live: 'https://spot-the-job.vercel.app',
-      featured: true
-    },
-    {
       id: 9,
-      title: 'Anime Loop - Streaming Platform',
-      description: 'An anime streaming website with extensive anime catalog, user favorites, watchlists, and responsive design. Features anime search, categories, and user recommendations.',
-      image: 'https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=600&h=400&fit=crop&crop=entropy',
-      technologies: ['React', 'API Integration', 'CSS3', 'JavaScript', 'Responsive Design'],
-      category: 'frontend',
-      github: 'https://github.com/dhanushram24/anime_loop',
-      live: 'https://anime-loop.netlify.app',
-      featured: false
-    },
-    {
-      id: 10,
       title: 'Forbes BMI Calculator',
-      description: 'A professional BMI (Body Mass Index) calculator with health recommendations and fitness tracking. Features include BMI calculation, health insights, and progress tracking.',
+      description: 'A comprehensive health assessment tool providing detailed BMI calculations with personalized recommendations. Features health category classifications, ideal weight suggestions, interactive progress charts, and educational content about healthy living.',
       image: 'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=600&h=400&fit=crop&crop=entropy',
       technologies: ['JavaScript', 'HTML5', 'CSS3', 'Chart.js', 'Local Storage'],
       category: 'frontend',
@@ -179,7 +168,7 @@ export default function Projects() {
                     src={project.image}
                     alt={project.title}
                     fill
-                    className="object-cover"
+                    className="object-contain"
                   />
                   <div className="absolute top-4 right-4">
                     <span className="px-3 py-1 bg-blue-600 text-white text-sm rounded-full">
@@ -286,7 +275,7 @@ export default function Projects() {
                     src={project.image}
                     alt={project.title}
                     fill
-                    className="object-cover"
+                    className="object-contain"
                   />
                 </div>
                 
