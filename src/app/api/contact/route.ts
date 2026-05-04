@@ -96,11 +96,12 @@ Sent on: ${new Date().toLocaleString()}
           message: 'Message sent successfully! I will get back to you shortly.'
         });
 
-      } catch (emailError: any) {
+      } catch (emailError) {
         console.error('❌ Email sending failed:', emailError);
+        const errorMessage = emailError instanceof Error ? emailError.message : 'Unknown error';
         return NextResponse.json({
           error: 'Email service error. Please try again later.',
-          details: emailError.message
+          details: errorMessage
         }, { status: 503 });
       }
     }
