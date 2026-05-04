@@ -27,55 +27,44 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
   const [theme, setTheme] = useState<Theme>('light');
   const [mounted, setMounted] = useState(false);
 
+  // Initial load
   useEffect(() => {
-    setMounted(true);
-    // Check for saved theme preference or default to light mode
     const savedTheme = localStorage.getItem('theme') as Theme;
     if (savedTheme) {
       setTheme(savedTheme);
     } else {
-      // Check system preference
       const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
       setTheme(prefersDark ? 'dark' : 'light');
     }
+    setMounted(true);
   }, []);
 
+  // Update classes and localStorage when theme changes
   useEffect(() => {
-    if (mounted) {
-      localStorage.setItem('theme', theme);
-      
-      // Apply theme to document
-      const htmlElement = document.documentElement;
-      const bodyElement = document.body;
-      
-      if (theme === 'dark') {
-        htmlElement.classList.add('dark');
-        bodyElement.classList.add('dark');
-        htmlElement.style.colorScheme = 'dark';
-      } else {
-        htmlElement.classList.remove('dark');
-        bodyElement.classList.remove('dark');
-        htmlElement.style.colorScheme = 'light';
-      }
-      
-      // Force a reflow to ensure styles are applied
-      void htmlElement.offsetHeight;
-    }
+    if (!mounted) return;
+
+    const root = window.document.documentElement;
+    root.classList.remove('light', 'dark');
+    root.classList.add(theme);
+    localStorage.setItem('theme', theme);
+    
+    // Update color-scheme for system UI elements
+    root.style.colorScheme = theme;
   }, [theme, mounted]);
 
   const toggleTheme = () => {
-    setTheme(prevTheme => prevTheme === 'light' ? 'dark' : 'light');
-  };
-
-  // Always provide the context, but with default values during hydration
-  const contextValue = {
-    theme: mounted ? theme : 'light' as Theme,
-    toggleTheme: mounted ? toggleTheme : () => {}
+    setTheme((prev) => (prev === 'light' ? 'dark' : 'light'));
   };
 
   return (
-    <ThemeContext.Provider value={contextValue}>
-      {children}
+    <ThemeContext.Provider value={{ theme, toggleTheme }}>
+      {/* 
+        Wrap children in a div that also gets the theme class to ensure 
+        Tailwind's dark: modifiers work correctly in all scenarios 
+      */}
+      <div className={mounted ? theme : ''}>
+        {children}
+      </div>
     </ThemeContext.Provider>
   );
 };

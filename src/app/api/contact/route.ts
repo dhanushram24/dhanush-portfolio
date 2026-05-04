@@ -14,61 +14,69 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Log the message (you can see this in the terminal)
-    console.log('📧 New contact form submission:');
-    console.log('-----------------------------------');
-    console.log(`Name: ${name}`);
-    console.log(`Email: ${email}`);
-    console.log(`Subject: ${subject}`);
-    console.log(`Message: ${message}`);
-    console.log(`Time: ${new Date().toISOString()}`);
-    console.log('-----------------------------------');
+    // Log the message to server console for backup/debugging
+    console.log('📧 New contact form submission:', {
+      name,
+      email,
+      subject,
+      time: new Date().toISOString()
+    });
 
-    // Check if email sending is enabled
+    // Check configuration
     const enableEmailSending = process.env.ENABLE_EMAIL_SENDING === 'true';
-    
-    if (enableEmailSending && process.env.GMAIL_APP_PASSWORD) {
+    const gmailUser = process.env.GMAIL_USER;
+    const gmailPass = process.env.GMAIL_APP_PASSWORD;
+    const isPlaceholder = !gmailPass || gmailPass === 'your-app-password-here';
+    const emailTo = process.env.CONTACT_EMAIL_TO || 'dhanushramguttula24@gmail.com';
+
+    if (enableEmailSending && gmailUser && !isPlaceholder) {
       try {
-        // Create transporter
+        // Create transporter using Gmail settings
         const transporter = nodemailer.createTransport({
           service: 'gmail',
           auth: {
-            user: process.env.GMAIL_USER,
-            pass: process.env.GMAIL_APP_PASSWORD,
+            user: gmailUser,
+            pass: gmailPass,
           },
         });
 
-        // Email content
+        // Email content with clean HTML styling
         const mailOptions = {
-          from: process.env.CONTACT_EMAIL_FROM,
-          to: process.env.CONTACT_EMAIL_TO,
-          subject: `Portfolio Contact: ${subject}`,
+          from: `"Portfolio Contact" <${gmailUser}>`,
+          to: emailTo,
+          replyTo: email,
+          subject: `New Message: ${subject}`,
           html: `
-            <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
-              <h2 style="color: #3b82f6;">New Portfolio Contact Message</h2>
-              
-              <div style="background-color: #f8fafc; padding: 20px; border-radius: 8px; margin: 20px 0;">
-                <h3 style="margin-top: 0;">Contact Details:</h3>
-                <p><strong>Name:</strong> ${name}</p>
-                <p><strong>Email:</strong> ${email}</p>
-                <p><strong>Subject:</strong> ${subject}</p>
+            <div style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; max-width: 600px; margin: 0 auto; color: #333; border: 1px solid #eee; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.05);">
+              <div style="background: linear-gradient(135deg, #D4AF37 0%, #C5A028 100%); padding: 30px; text-align: center;">
+                <h1 style="color: black; margin: 0; font-size: 24px; font-weight: 800; letter-spacing: -0.5px;">New Inquiry</h1>
               </div>
               
-              <div style="background-color: #ffffff; padding: 20px; border: 1px solid #e2e8f0; border-radius: 8px;">
-                <h3 style="margin-top: 0;">Message:</h3>
-                <p style="line-height: 1.6;">${message.replace(/\n/g, '<br>')}</p>
-              </div>
-              
-              <div style="margin-top: 20px; padding: 15px; background-color: #eff6ff; border-radius: 8px;">
-                <p style="margin: 0; font-size: 14px; color: #6b7280;">
-                  This message was sent from your portfolio contact form on ${new Date().toLocaleString()}.
-                </p>
+              <div style="padding: 30px; background-color: #ffffff;">
+                <div style="margin-bottom: 25px;">
+                  <p style="margin: 0; font-size: 12px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; color: #999;">From</p>
+                  <p style="margin: 5px 0 0; font-size: 18px; font-weight: 600;">${name} <span style="font-weight: 400; color: #666; font-size: 14px;">(${email})</span></p>
+                </div>
+                
+                <div style="margin-bottom: 25px;">
+                  <p style="margin: 0; font-size: 12px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; color: #999;">Subject</p>
+                  <p style="margin: 5px 0 0; font-size: 16px; font-weight: 600;">${subject}</p>
+                </div>
+                
+                <div style="margin-bottom: 30px; padding: 20px; background-color: #f9f9f9; border-radius: 8px; border-left: 4px solid #D4AF37;">
+                  <p style="margin: 0; font-size: 12px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; color: #999; margin-bottom: 10px;">Message</p>
+                  <p style="margin: 0; line-height: 1.6; font-size: 15px; white-space: pre-wrap;">${message}</p>
+                </div>
+                
+                <div style="text-align: center; margin-top: 40px; padding-top: 20px; border-top: 1px solid #eee;">
+                  <p style="margin: 0; font-size: 11px; color: #bbb; text-transform: uppercase; letter-spacing: 2px;">Sent via Dhanush Portfolio</p>
+                </div>
               </div>
             </div>
           `,
           text: `
-Portfolio Contact Message
-
+New Portfolio Contact
+--------------------
 Name: ${name}
 Email: ${email}
 Subject: ${subject}
@@ -82,30 +90,34 @@ Sent on: ${new Date().toLocaleString()}
 
         // Send email
         await transporter.sendMail(mailOptions);
-        console.log('✅ Email sent successfully!');
-        
+
         return NextResponse.json({
           success: true,
-          message: 'Message sent successfully! I will get back to you soon.'
+          message: 'Message sent successfully! I will get back to you shortly.'
         });
-        
-      } catch (emailError) {
+
+      } catch (emailError: any) {
         console.error('❌ Email sending failed:', emailError);
-        // Fall back to logging only
+        return NextResponse.json({
+          error: 'Email service error. Please try again later.',
+          details: emailError.message
+        }, { status: 503 });
       }
     }
 
-    // If email sending is disabled or failed, just log and return success
-    console.log('📝 Message logged (email sending disabled)');
+    // Fallback: If credentials aren't set, we log to console and return success for UX
+    // But we notify that it's in "Test Mode"
+    console.warn('⚠️ Email credentials not configured. Message logged to console only.');
+
     return NextResponse.json({
       success: true,
-      message: 'Message received! I will get back to you soon. (Currently in demo mode - check terminal for logged message)'
+      message: 'Message received! (Note: Portfolio is currently in demo mode, but your message has been logged to the server console.)'
     });
 
   } catch (error) {
-    console.error('Contact form error:', error);
+    console.error('Contact form API error:', error);
     return NextResponse.json(
-      { error: 'Failed to send message' },
+      { error: 'Internal server error while processing your message.' },
       { status: 500 }
     );
   }

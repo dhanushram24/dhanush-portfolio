@@ -8,6 +8,20 @@ module.exports = {
   darkMode: 'class',
   theme: {
     extend: {
+      colors: {
+        gold: {
+          50: '#fffcf2',
+          100: '#fff9e6',
+          200: '#ffedcc',
+          300: '#ffdb99',
+          400: '#ffc466',
+          500: '#D4AF37',
+          600: '#B8860B',
+          700: '#996515',
+          800: '#7A4D0F',
+          900: '#5C3A0A',
+        },
+      },
       fontFamily: {
         sans: ['var(--font-geist-sans)', 'sans-serif'],
         mono: ['var(--font-geist-mono)', 'monospace'],
